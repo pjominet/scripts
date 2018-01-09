@@ -1,0 +1,24 @@
+#!/bin/bash
+
+name=""
+file=""
+help="-n	nameroot for the compressed file\n
+      -f	file to be compressed\n
+      -h	display help"
+actualDate=$(date +"%Y-%m-%d")
+
+while getopts ':n:f:h' OPTION ; do
+  case "$OPTION" in
+    n) name=$OPTARG; echo "nameroot: ${name}";;
+    f) file=$OPTARG; echo "file: ${file}";;
+    h) printf $help;;
+    *) printf $help
+  esac
+done
+
+nameroot="${name}_${actualDate}_Jominet_5756626.zip"
+
+if [ "$name" != "" ] && [ "$file" != "" ];
+	then zip -r "${nameroot}" "${file}" -x ${file}/.idea**\* ${file}/cmake-build-debug**\* ${file}/.git**\*
+	else echo "Process failed"
+fi
