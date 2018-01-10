@@ -6,7 +6,7 @@
 SETLOCAL ENABLEEXTENSIONS
 
 :: variables
-set PATH=%PATH%;D:\Program Files\7-Zip\
+SET PATH=%PATH%;D:\Program Files\7-Zip\
 SET me=%~n0
 SET archive=%~1
 FOR /F %%i IN (%archive%) DO SET extracted=%%~ni
