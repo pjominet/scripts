@@ -23,6 +23,8 @@ IF NOT ["%~1"]==[] (
 		7z a -tzip %extracted%.zip .\%extracted%\* -mx5
 		ECHO Removing temporary extracted data...
 		@RD /S /Q %extracted%
+		ECHO Removing old archive...
+		DEL %archive%
 		ECHO Done!
 	) ELSE (
 		ECHO %archive% is no archive!
