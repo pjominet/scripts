@@ -8,28 +8,22 @@ SETLOCAL ENABLEEXTENSIONS
 :: variables
 SET PATH=%PATH%;D:\Program Files\7-Zip\
 SET me=%~n0
-SET archive=%~1
-FOR %%i IN (%archive%) DO SET extracted=%%~ni
-FOR %%i IN (%archive%) DO SET extension=%%~xi
+SET archive="%~1"
+FOR %%i IN (%archive%) DO SET extracted="%%~ni"
 
 :: main
 IF "%~1"=="--help" (
 	ECHO %me% [archive to convert]
 	@EXIT /B 0
 )
-IF NOT [%~1]==[] (
-	IF EXIST "%archive%" (
+IF NOT ["%~1"]==[] (
+	IF EXIST %archive% (
 		ECHO Converting %archive% to zip format...
-		ECHO ^> Extracting %extension%-file...
-		7z x %archive% -o%extracted% -aoa > nul
-		ECHO ^> Done!
-		ECHO ^> Recompressing into zip...
-		7z a -tzip %extracted%.zip .\%extracted%\* -mx5 > nul
-		ECHO ^> Done!
-		ECHO ^> Removing temporary extracted data...
+		7z x %archive% -o%extracted% -aoa
+		7z a -tzip %extracted%.zip .\%extracted%\* -mx5
+		ECHO Removing temporary extracted data...
 		@RD /S /Q %extracted%
-		ECHO ^> Done!
-		ECHO SUCCESS!
+		ECHO Done!
 	) ELSE (
 		ECHO %archive% is no archive!
 		@EXIT /B 0
